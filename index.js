@@ -20,7 +20,9 @@ app.post('/google/image', upload.single('image'), googleImageOCR)
 app.post('/google/ocr', upload.single('image'), googleOCR);
 
 app.post('/microsoft/ocr', upload.single('image'), computerVision)
-
+app.get('/', (req, res) => {
+    res.send('TEXT TRACT BACKEND...')
+})
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (err) => {
     if (!err) {
