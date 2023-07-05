@@ -1,4 +1,3 @@
-const { CREDS } = require("./googleCRED.js");
 const fs = require('fs');
 const vision = require('@google-cloud/vision');
 const visionV1 = require('@google-cloud/vision').v1;
@@ -6,15 +5,14 @@ const visionV2 = require('@google-cloud/vision').v1p3beta1;
 
 const CONFIG = {
     credentials: {
-        private_key: CREDS.private_key,
-        client_email: CREDS.client_email,
+        private_key: process.env.PRIVATE_KEY,
+        client_email: process.env.CLIENT_EMAIL
     }
 };
 
 module.exports.googleOCR = async (req, res) => {
     try {
         const _path = req.file.path;
-        // const _path = req.body.fileUrl;
         const client = new vision.ImageAnnotatorClient(CONFIG);
         const [result] = await client.documentTextDetection(_path);
         const fullTextAnnotation = result.fullTextAnnotation;
